@@ -1,3 +1,3 @@
 # store
 
-This code decides whether it's posiible to fit a set boxes in the store.
+This code decides whether it's possible to fit a set boxes in the store.
