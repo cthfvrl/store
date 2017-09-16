@@ -14,12 +14,14 @@ class Store {
 		Box(vector<double>x = vector<double>(N, 0));
 		friend istream& operator>>(istream &is,
 		                           Box     &b);
+		double&         operator[](int n);
+		~Box();
 	};
 
 	friend istream& operator>>(istream &is,
 	                           Box     &b);
 	int n;
-	Box st;
+	Box space;
 	vector<Box> boxes;
 
 	bool check();
@@ -31,6 +33,7 @@ public:
 	friend istream& operator>>(istream &is,
 	                           Store   &s);
 	bool            fits();
+	~Store();
 };
 
 #endif // ifndef STORE

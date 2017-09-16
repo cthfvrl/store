@@ -14,8 +14,18 @@ istream& operator>>(istream &is, Store::Box &b) {
 	return is;
 }
 
+double& Store::Box::operator[](int n) {
+	return len[n];
+}
+
+Store::Box::~Box() {}
+
 bool Store::check() {
-	for (int dim = 0; dim < N; ++dim) {}
+	for (int dim = 0; dim < N; ++dim) {
+		double tmp = 0;
+		for (int i = 0; i < n; ++i) tmp += boxes[i][dim];
+		if (tmp > space[dim]) return false;
+	}
 	return true;
 }
 
@@ -30,7 +40,7 @@ void Store::read(const string &filename) {
 }
 
 istream& operator>>(istream &is, Store &s) {
-	is >> s.st;
+	is >> s.space;
 	Store::Box tmp;
 	while (is >> tmp) s.boxes.push_back(tmp), ++s.n;
 	return is;
@@ -39,3 +49,5 @@ istream& operator>>(istream &is, Store &s) {
 bool Store::fits() {
 	return check();
 }
+
+Store::~Store() {}
