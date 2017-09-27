@@ -1,9 +1,8 @@
 FLAGS := --std=c++14
 NAME := run
-NAMEFILE := source
 
-release : $(NAMEFILE).cpp
+release : diff.cpp store.cpp source.cpp
 	g++ -O3 $(FLAGS) $^ -o $(NAME)
-debug : $(NAMEFILE).cpp
+debug: diff.cpp store.cpp source.cpp
 	g++ -g $(FLAGS) $^ -o $(NAME)
 	gdb $(NAME)

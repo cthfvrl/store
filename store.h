@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include <map>
 #include "gray.h"
 
 using namespace std;
@@ -36,11 +37,12 @@ class Store {
 	int n;
 	Box space;
 	vector<Box> boxes;
-	Gray<6> gray;
 
 	bool check();
 	void init();
-	void next();
+	bool next(Gray<6> &gray);
+	bool place(map<int, map<int, map<int, int> > > &grid,
+	           const Box &b);
 
 public:
 

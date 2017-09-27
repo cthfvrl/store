@@ -1,16 +1,8 @@
 #ifndef GRAY_H
 #define GRAY_H
 #include <vector>
+#include "diff.h"
 using namespace std;
-
-struct Diff {
-	int  pos;
-	bool next;
-
-	Diff(int  p = 0,
-	     bool n = true);
-	~Diff();
-};
 
 template<int N>
 class Gray {
@@ -28,14 +20,6 @@ public:
 	Diff next();
 	~Gray();
 };
-
-Diff::Diff(int  p,
-           bool n)
-	: pos(p)
-	, next(n)
-{}
-
-Diff::~Diff() {}
 
 template<int N>
 Gray<N>::Gray()

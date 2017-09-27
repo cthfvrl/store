@@ -6,6 +6,11 @@ int main() {
 	cout.tie(0);
 	cin.tie(0);
 
+	Store store;
+
+	cin >> store;
+
+	cout << store.fits();
 
 	return 0;
 }
