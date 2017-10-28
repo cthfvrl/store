@@ -1,5 +1,4 @@
-#ifndef STORE_H
-#define STORE_H
+#pragma once
 #include <fstream>
 #include <string>
 #include <vector>
@@ -60,5 +59,3 @@ public:
 	bool fits();
 	~Store();
 };
-
-#endif // ifndef STORE_H

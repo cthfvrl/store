@@ -1,5 +1,4 @@
-#ifndef DIFF_H
-#define DIFF_H
+#pragma once
 
 struct Diff {
 	int  pos;
@@ -9,5 +8,3 @@ struct Diff {
 	     bool n = true);
 	~Diff();
 };
-
-#endif // ifndef DIFF_H

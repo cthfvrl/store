@@ -1,7 +1,7 @@
-#ifndef GRAY_H
-#define GRAY_H
+#pragma once
 #include <vector>
 #include "diff.h"
+
 using namespace std;
 
 template<int N>
@@ -66,4 +66,3 @@ Diff Gray<N>::next() {
 template<int N>
 Gray<N>::~Gray() {}
 
-#endif // ifndef GRAY_H
