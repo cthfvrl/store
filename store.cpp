@@ -2,7 +2,7 @@
 
 Store::Box::Box() {}
 
-Store::Box::Box(vector<double>x) {
+Store::Box::Box(vector<double> x) {
 	for (int i = 0; i < N; ++i) len[i] = x[i];
 }
 
@@ -61,6 +61,33 @@ bool Store::next(Gray<6> &gray) {
 	return true;
 }
 
+void Store::place2D(map<int, map<int, int> > &z, const Store::Box &b, double curX, double curY) {
+	// Intersecting levels, including the botttom one
+	for (auto y = z.find(curY); y != z.end() && y->first < curY + b[1]; ++y) {
+		auto x = y->second.upper_bound(curX);
+		--x;
+		// The fuck is this??
+		if ((curX < x->first) || (curX + b[0] > x->second)) throw PredicateViolation();
+
+		// Space left to the right
+		if (curX + b[0] < x->second) y->second[curX + b[0]] = x->second;
+
+		// Space left to the left
+		if (curX != x->first) x->second = curX;
+
+		// No space left to the left
+		else y->second.erase(x);
+	}
+
+	// Init top level if needed
+	// Process!!!!!!!!!!!
+	//  --
+	// |  | --  <- new y
+	// |  ||  |
+	//  --  --
+	if ((curY + b[1] < space[1]) && !z.count(curY + b[1])) z[curY + b[1]][0] = space[0];
+}
+
 bool Store::place(map<int, map<int, map<int, int> > > &grid, const Store::Box &b) {
 	for (map<int, map<int, map<int, int> > >::iterator z = grid.begin(),
 	     prevZ = grid.end();
@@ -77,8 +104,21 @@ bool Store::place(map<int, map<int, map<int, int> > > &grid, const Store::Box &b
 					     x != y->second.end();
 					     prevX = x++)
 						if (x->second - x->first >= b[0]) {
-							if (x->second - x->first == b[0]) y->second.erase(x);  // Not enough
-							else x->second -= b[0];
+							// Remember current x, y and z
+							double curX = x->first, curY = y->first, curZ = z->first;
+
+							// Intersecting planes, including the bottom one
+							for (; z != grid.end() && z->first < curZ + b[2]; ++z)
+								try {
+									place2D(z->second, b, curX, curY);
+								}
+								catch (PredicateViolation) {
+									cerr << "Predicate violation.\n";
+									throw 1;
+								}
+
+							// Init top plane if needed
+							if ((curZ + b[2] < space[2]) && !grid.count(curZ + b[2])) grid[curZ + b[2]][0][0] = space[0];
 
 							return true;
 						}
@@ -116,7 +156,10 @@ istream& operator>>(istream &is, Store &s) {
 bool Store::fits() {
 	init();
 	Gray<6> gray;
+
+	// Rotational examintaion
 	do {
+		// Permutational examintaion
 		do {
 			if (check()) return true;
 		} while (next_permutation(boxes.begin(), boxes.end()));

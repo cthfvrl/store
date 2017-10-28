@@ -5,24 +5,27 @@
 #include <vector>
 #include <algorithm>
 #include <map>
+#include <iostream>
 #include "gray.h"
 
 using namespace std;
 
 class Store {
+	class PredicateViolation {};
+
 	static const int N = 3;
 	struct Box {
-		int    num;
+		int num;
 		double len[N];
 
 		Box();
-		Box(vector<double>x);
+		Box(vector<double> x);
 		friend istream& operator>>(istream &is,
 		                           Box     &b);
-		friend bool     operator<(const Box &l,
-		                          const Box &r);
+		friend bool operator<(const Box &l,
+		                      const Box &r);
 		double&         operator[](int n);
-		double          operator[](int n) const;
+		double operator[](int n) const;
 		void init();
 		void next();
 		void prev();
@@ -31,8 +34,8 @@ class Store {
 
 	friend istream& operator>>(istream &is,
 	                           Box     &b);
-	friend bool     operator<(const Box &l,
-	                          const Box &r);
+	friend bool operator<(const Box &l,
+	                      const Box &r);
 
 	int n;
 	Box space;
@@ -41,16 +44,20 @@ class Store {
 	bool check();
 	void init();
 	bool next(Gray<6> &gray);
+	void place2D(map<int, map<int, int> > &z,
+	             const Box &b,
+	             double curX,
+	             double curY);
 	bool place(map<int, map<int, map<int, int> > > &grid,
 	           const Box &b);
 
 public:
 
 	Store();
-	void            read(const string &filename);
+	void read(const string &filename);
 	friend istream& operator>>(istream &is,
 	                           Store   &s);
-	bool            fits();
+	bool fits();
 	~Store();
 };
 
