@@ -111,14 +111,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\diff.h" />
-    <ClInclude Include="..\..\gray.h" />
-    <ClInclude Include="..\..\store.h" />
+    <ClInclude Include="box.h" />
+    <ClInclude Include="diff.h" />
+    <ClInclude Include="gray.h" />
+    <ClInclude Include="grid.h" />
+    <ClInclude Include="store.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\diff.cpp" />
-    <ClCompile Include="..\..\source.cpp" />
-    <ClCompile Include="..\..\store.cpp" />
+    <ClCompile Include="box.cpp" />
+    <ClCompile Include="diff.cpp" />
+    <ClCompile Include="grid.cpp" />
+    <ClCompile Include="source.cpp" />
+    <ClCompile Include="store.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
