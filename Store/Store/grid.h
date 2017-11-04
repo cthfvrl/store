@@ -5,10 +5,13 @@
 using namespace std;
 
 class Grid {
-	map<double, map<double, map<double, bool> > > grid;
-
 public:
-	Grid(Box const& b);
+	Grid(Box const& space);
 	bool place(Box const& b);
 	~Grid();
+
+private:
+	map<double, map<double, map<double, bool> > > grid;
+
+	bool place(Box const&b, double xStart, double yStart, double zStart);
 };
