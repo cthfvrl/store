@@ -1,5 +1,6 @@
 #include "store.h"
 #include <iostream>
+#include <fstream>
 
 int main() {
 	ios_base::sync_with_stdio(0);
@@ -10,7 +11,8 @@ int main() {
 
 	store.read("input.txt");
 
-	cout << store.fits();
+	ofstream fout("out.txt");
+	fout << store.fits() << '\n';
 
 	return 0;
 }

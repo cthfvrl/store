@@ -260,3 +260,5 @@ paket-files/
 __pycache__/
 *.pyc
 /Store/Store/input.txt
+/Store/Store/tests.txt
+/Store/Store/out.txt

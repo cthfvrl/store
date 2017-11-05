@@ -22,6 +22,7 @@ protected:
 	bool check();
 	void init();
 	bool next(Gray<6> &gray);
+	bool volumeCheck();
 	
 public:
 
@@ -29,6 +30,6 @@ public:
 	void read(const string &filename);
 	friend istream& operator>>(istream &is,
 		Store   &s);
-	bool fits();
+	string fits();
 	~Store();
 };

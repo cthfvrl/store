@@ -19,6 +19,7 @@ struct Box {
 		const Box &r);
 	double&         operator[](int n);
 	double operator[](int n) const;
+	double volume() const;
 	void init();
 	void next();
 	void prev();

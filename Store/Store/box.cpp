@@ -23,6 +23,13 @@ double Box::operator[](int n) const {
 	return len[n];
 }
 
+double Box::volume() const {
+	double v = 1;
+	for (int i = 0; i < N; ++i)
+		v *= len[i];
+	return v;
+}
+
 void Box::init() {
 	sort(len, len + N);
 }

@@ -24,6 +24,16 @@ bool Store::next(Gray<6> &gray) {
 	return true;
 }
 
+bool Store::volumeCheck() {
+	double spaceVolume = space.volume();
+
+	double sum = 0;
+	for (auto b : boxes)
+		sum += b.volume();
+
+	return ((sum <= spaceVolume) ? true : false);
+}
+
 Store::Store()
 	: n(0)
 {}
@@ -46,7 +56,14 @@ istream& operator>>(istream &is, Store &s) {
 	return is;
 }
 
-bool Store::fits() {
+string Store::fits() {
+	if (boxes.empty()) return "The store is empty";
+
+	const string fit = (boxes.size() > 1) ? "Boxes fit into the store" : "Box fits into the store";
+	const string dontfit = (boxes.size() > 1) ? "Boxes don't fit into the store" : "Box doesn't fit into the store";
+
+	if (!volumeCheck()) return dontfit;
+
 	init();
 	Gray<6> gray;
 
@@ -54,10 +71,10 @@ bool Store::fits() {
 	do {
 		// Permutational examintaion
 		do {
-			if (check()) return true;
+			if (check()) return fit;
 		} while (next_permutation(boxes.begin(), boxes.end()));
 	} while (next(gray));
-	return false;
+	return dontfit;
 }
 
 Store::~Store() {}
