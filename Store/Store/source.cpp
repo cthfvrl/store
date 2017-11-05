@@ -8,7 +8,7 @@ int main() {
 
 	Store store;
 
-	cin >> store;
+	store.read("input.txt");
 
 	cout << store.fits();
 

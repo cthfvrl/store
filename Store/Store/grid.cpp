@@ -24,6 +24,10 @@ bool Grid::place(Box const& b) {
 Grid::~Grid() {}
 
 bool Grid::place(Box const& b, double xStart, double yStart, double zStart) {
+	const double xEdge = grid[0][0].rbegin()->first;
+	const double yEdge = grid[0].rbegin()->first;
+	const double zEdge = grid.rbegin()->first;
+
 	double xNew = xStart + b[0];
 	double yNew = yStart + b[1];
 	double zNew = zStart + b[2];
@@ -41,10 +45,21 @@ bool Grid::place(Box const& b, double xStart, double yStart, double zStart) {
 
 	// All intersecting cubes are empty
 	// Make new vertices if needed
+	// Check edge vertices
 	if (grid[0][0].find(xNew) == grid[0][0].end())
 		for (auto& z : grid)
-			for (auto& y : z.second)
-				y.second[xNew] = true;
+			for (auto& y : z.second) {
+				if (y.first == yEdge || z.first == zEdge) {
+					y.second[xNew] = false;
+					continue;
+				}
+				auto tmp = y.second[0];
+				for (auto& x : y.second) {
+					if (x.first < xNew) tmp = x.second;
+					else break;
+				}
+				y.second[xNew] = tmp;
+			}
 	if (grid[0].find(yNew) == grid[0].end())
 		for (auto& z : grid) {
 			auto *tmp = &z.second[0];
@@ -70,7 +85,7 @@ bool Grid::place(Box const& b, double xStart, double yStart, double zStart) {
 				if (y.first >= yStart && y.first < yNew)
 					for (auto& x : y.second)
 						if (x.first >= xStart && x.first < xNew)
-							x.second = true;
+							x.second = false;
 
 	return true;
 }

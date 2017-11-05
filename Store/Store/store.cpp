@@ -2,8 +2,9 @@
 
 bool Store::check() {
 	Grid grid(space);
-	for (auto b : boxes)
+	for (auto b : boxes) {
 		if (!grid.place(b)) return false;
+	}
 
 	return true;
 }
@@ -40,7 +41,7 @@ istream& operator>>(istream &is, Store &s) {
 	while (is >> tmp) {
 		tmp.num = s.n;
 		s.boxes.push_back(tmp),
-		++s.n;
+			++s.n;
 	}
 	return is;
 }
