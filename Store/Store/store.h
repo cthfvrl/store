@@ -23,6 +23,7 @@ protected:
 	void init();
 	bool next(Gray<6> &gray);
 	bool volumeCheck();
+	bool lenghtCheck();
 	
 public:
 

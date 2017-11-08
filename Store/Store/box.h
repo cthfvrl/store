@@ -20,6 +20,7 @@ struct Box {
 	double&         operator[](int n);
 	double operator[](int n) const;
 	double volume() const;
+	friend bool inside(Box const& b, Box const& outer);
 	void init();
 	void next();
 	void prev();

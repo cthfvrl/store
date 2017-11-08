@@ -15,6 +15,24 @@ bool operator<(const Box &l, const Box &r) {
 	return l.num < r.num;
 }
 
+bool inside(Box const& b, Box const& outer) {
+	vector<double> v(Box::N);
+	for (int i = 0; i < Box::N; ++i)
+		v[i] = b[i];
+	sort(v.begin(), v.end());
+
+	do {
+		bool fits = true;
+		for (int i = 0; i < Box::N; ++i)
+			if (v[i] > outer[i]) {
+				fits = false;
+				break;;
+			}
+		if (fits) return true;
+	} while (next_permutation(v.begin(), v.end()));
+	return false;
+}
+
 double& Box::operator[](int n) {
 	return len[n];
 }

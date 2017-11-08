@@ -34,6 +34,13 @@ bool Store::volumeCheck() {
 	return ((sum <= spaceVolume) ? true : false);
 }
 
+bool Store::lenghtCheck() {
+	for (auto b : boxes)
+		if (!inside(b, space))
+			return false;
+	return true;
+}
+
 Store::Store()
 	: n(0)
 {}
@@ -62,7 +69,7 @@ string Store::fits() {
 	const string fit = (boxes.size() > 1) ? "Boxes fit into the store" : "Box fits into the store";
 	const string dontfit = (boxes.size() > 1) ? "Boxes don't fit into the store" : "Box doesn't fit into the store";
 
-	if (!volumeCheck()) return dontfit;
+	if (!volumeCheck() || !lenghtCheck()) return dontfit;
 
 	init();
 	Gray<6> gray;
