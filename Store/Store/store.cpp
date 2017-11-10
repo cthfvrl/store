@@ -76,13 +76,10 @@ istream& operator>>(istream &is, Store &s) {
 	return is;
 }
 
-string Store::fits() {
+bool Store::fits() {
 	if (boxes.empty()) return "The store is empty";
 
-	const string fit = (boxes.size() > 1) ? "Boxes fit into the store" : "Box fits into the store";
-	const string dontfit = (boxes.size() > 1) ? "Boxes don't fit into the store" : "Box doesn't fit into the store";
-
-	if (!volumeCheck()) return dontfit;
+	if (!volumeCheck()) return false;
 
 	init();
 	Gray<6> gray;
@@ -92,11 +89,15 @@ string Store::fits() {
 		if (lenghtCheck()) {
 			// Permutational examintaion
 			do {
-				if (check()) return fit;
+				if (check()) return true;
 			} while (next_permutation(boxes.begin(), boxes.end()));
 		}
 	} while (next(gray));
-	return dontfit;
+	return false;
+}
+
+int Store::size() const {
+	return n;
 }
 
 Store::~Store() {}

@@ -11,8 +11,11 @@ int main() {
 
 	store.read("input.txt");
 
-	ofstream fout("out.txt");
-	fout << store.fits() << '\n';
+	const string fit = (store.size() > 1) ? "Boxes fit into the store" : "Box fits into the store";
+	const string dontfit = (store.size() > 1) ? "Boxes don't fit into the store" : "Box doesn't fit into the store";
+
+	if (!store.fits())
+		cout << dontfit << '\n';
 
 	return 0;
 }

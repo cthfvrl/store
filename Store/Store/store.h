@@ -32,6 +32,7 @@ public:
 	void read(const string &filename);
 	friend istream& operator>>(istream &is,
 		Store   &s);
-	string fits();
+	bool fits();
+	int size() const;
 	~Store();
 };
