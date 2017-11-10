@@ -7,7 +7,7 @@ using namespace std;
 class Grid {
 public:
 	Grid(Box const& space);
-	bool place(Box const& b);
+	bool place(Box const& b, Box &coordinates);
 	~Grid();
 
 private:

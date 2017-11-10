@@ -3,21 +3,25 @@
 Grid::Grid(Box const& space) {
 	double x = space[0], y = space[1], z = space[2];
 	grid[0][0][0] = true;
-	grid[x][0][0] = false;
+	grid[z][0][0] = false;
 	grid[0][y][0] = false;
-	grid[x][y][0] = false;
-	grid[0][0][z] = false;
-	grid[x][0][z] = false;
-	grid[0][y][z] = false;
-	grid[x][y][z] = false;
+	grid[z][y][0] = false;
+	grid[0][0][x] = false;
+	grid[z][0][x] = false;
+	grid[0][y][x] = false;
+	grid[z][y][x] = false;
 }
 
-bool Grid::place(Box const& b) {
+bool Grid::place(Box const& b, Box &coordinates) {
 	for (auto& z : grid)
 		for (auto& y : z.second)
 			for (auto& x : y.second)
-				if (place(b, x.first, y.first, z.first))
+				if (place(b, x.first, y.first, z.first)) {
+					coordinates.len[0] = x.first;
+					coordinates.len[1] = y.first;
+					coordinates.len[2] = z.first;
 					return true;
+				}
 	return false;
 }
 

@@ -15,6 +15,8 @@ struct Box {
 	Box(vector<double> x);
 	friend istream& operator>>(istream &is,
 		Box     &b);
+	friend ostream& operator<<(ostream &os,
+		Box     &b);
 	friend bool operator<(const Box &l,
 		const Box &r);
 	double&         operator[](int n);

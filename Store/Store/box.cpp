@@ -11,26 +11,21 @@ istream& operator>>(istream &is, Box &b) {
 	return is;
 }
 
+ostream& operator<<(ostream &os, Box &b) {
+	for (int i = 0; i < Box::N; ++i)
+		os << b[i] << ' ';
+	return os;
+}
+
 bool operator<(const Box &l, const Box &r) {
 	return l.num < r.num;
 }
 
 bool inside(Box const& b, Box const& outer) {
-	vector<double> v(Box::N);
 	for (int i = 0; i < Box::N; ++i)
-		v[i] = b[i];
-	sort(v.begin(), v.end());
-
-	do {
-		bool fits = true;
-		for (int i = 0; i < Box::N; ++i)
-			if (v[i] > outer[i]) {
-				fits = false;
-				break;;
-			}
-		if (fits) return true;
-	} while (next_permutation(v.begin(), v.end()));
-	return false;
+		if (b[i] > outer[i])
+			return false;
+	return true;
 }
 
 double& Box::operator[](int n) {

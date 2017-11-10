@@ -24,6 +24,7 @@ protected:
 	bool next(Gray<6> &gray);
 	bool volumeCheck();
 	bool lenghtCheck();
+	void print(vector<Box> &coordinates);
 	
 public:
 

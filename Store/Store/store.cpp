@@ -2,9 +2,12 @@
 
 bool Store::check() {
 	Grid grid(space);
-	for (auto b : boxes) {
-		if (!grid.place(b)) return false;
+	vector<Box> coordinates(n);
+	for (int i = 0; i < n; ++i) {
+		if (!grid.place(boxes[i], coordinates[i])) return false;
 	}
+
+	print(coordinates);
 
 	return true;
 }
@@ -41,6 +44,16 @@ bool Store::lenghtCheck() {
 	return true;
 }
 
+void Store::print(vector<Box> &coordinates) {
+	cout << "Store lenghts: " << space << '\n';
+
+	for (int i = 0; i < n; ++i) {
+		cout << "Box lenghts: " << boxes[i];
+		cout << "\tCoordinates: " << coordinates[i];
+		cout << '\n';
+	}
+}
+
 Store::Store()
 	: n(0)
 {}
@@ -69,17 +82,19 @@ string Store::fits() {
 	const string fit = (boxes.size() > 1) ? "Boxes fit into the store" : "Box fits into the store";
 	const string dontfit = (boxes.size() > 1) ? "Boxes don't fit into the store" : "Box doesn't fit into the store";
 
-	if (!volumeCheck() || !lenghtCheck()) return dontfit;
+	if (!volumeCheck()) return dontfit;
 
 	init();
 	Gray<6> gray;
 
 	// Rotational examintaion
 	do {
-		// Permutational examintaion
-		do {
-			if (check()) return fit;
-		} while (next_permutation(boxes.begin(), boxes.end()));
+		if (lenghtCheck()) {
+			// Permutational examintaion
+			do {
+				if (check()) return fit;
+			} while (next_permutation(boxes.begin(), boxes.end()));
+		}
 	} while (next(gray));
 	return dontfit;
 }
